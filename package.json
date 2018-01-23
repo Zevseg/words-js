@@ -1,9 +1,17 @@
 {
   "name": "words-js",
+  "description": "The application on React for drawing up different words from one long word",
   "version": "0.1.0",
+  "license": "MIT",
   "private": true,
+  "repository": {
+    "type": "git",
+    "url": "git://github.com/volmir/words-js.git"
+  },
   "dependencies": {
     "bootstrap": "^3.3.7",
+    "catta": "^2.1.1",
+    "jquery": "^3.3.1",
     "react": "^16.2.0",
     "react-bootstrap": "^0.32.0",
     "react-dom": "^16.2.0",

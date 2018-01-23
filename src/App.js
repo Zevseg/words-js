@@ -4,82 +4,42 @@ import React from 'react';
 import {
   BrowserRouter as Router,
   Route,
-  Link
+  Link,
+  Switch,
+  Redirect
 } from 'react-router-dom';
-import Rules from './rules';
-import NotFound from './notfound';
+import Home from './pages/home';
+import Game from './pages/game';
+//import Answers from './pages/answers';
+import Answers from './pages/test';
+import Rules from './pages/rules';
+import About from './pages/about';
+import NotFound from './pages/notfound';
+
+
 
 const App = () => (
   <Router>
-    <div>
+    <nav>
       <ul>
         <li><Link to="/">Главная</Link></li>
-        <li><Link to="/about">Игра</Link></li>
-        <li><Link to="/topics">Правила</Link></li>
-        <li><Link to="/rules">Об игре</Link></li>
+        <li><Link to="/game">Игра</Link></li>
+        <li><Link to="/answers">Поиск слов</Link></li>
+        <li><Link to="/rules">Правила</Link></li>
+        <li><Link to="/about">Об игре</Link></li>
       </ul>
 
-      <hr/>
-
-      <Route exact path="/" component={Home}/>
-      <Route path="/about" component={About}/>
-      <Route path="/topics" component={Topics}/>
-      <Route path="/rules" component={Rules}/>
-      <Route component={NotFound} />
-    </div>
+      <Switch>
+        <Route path="/" exact component={Home}/>
+        <Route path="/game" component={Game}/>
+        <Route path="/answers" component={Answers}/>
+        <Redirect from="/answer" to="/answers"/>
+        <Route path="/rules" component={Rules}/>
+        <Route path="/about" component={About}/>
+        <Route component={NotFound} value={24243} />
+      </Switch>
+    </nav>
   </Router>
-)
-
-const Rules2 = () => (
-  <div>      
-     Rules Rules Rules Rules
-  </div>   
-)
-
-const Home = () => (
-  <div>
-    <h2>Home</h2>
-  </div>
-)
-
-const About = () => (
-  <div>
-    <h2>About</h2>
-  </div>
-)
-
-const Topics = ({ match }) => (
-  <div>
-    <h2>Topics</h2>
-    <ul>
-      <li>
-        <Link to={`${match.url}/rendering`}>
-          Rendering with React
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/components`}>
-          Components
-        </Link>
-      </li>
-      <li>
-        <Link to={`${match.url}/props-v-state`}>
-          Props v. State
-        </Link>
-      </li>
-    </ul>
-
-    <Route path={`${match.url}/:topicId`} component={Topic}/>
-    <Route exact path={match.url} render={() => (
-      <h3>Please select a topic.</h3>
-    )}/>
-  </div>
-)
-
-const Topic = ({ match }) => (
-  <div>
-    <h3>{match.params.topicId}</h3>
-  </div>
 )
 
 export default App;
