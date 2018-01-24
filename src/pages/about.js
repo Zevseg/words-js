@@ -11,7 +11,7 @@ class About extends React.Component {
   render() {
     return (
       <div className="content">
-        <h2>Об игре</h2>
+        <h3>Об игре</h3>
         
     <div style={{paddingTop: '10px'}}></div>   
 <p>    

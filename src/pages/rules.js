@@ -11,7 +11,7 @@ class Rules extends React.Component {
   render() {
     return (
       <div className="content">
-        <h2>Правила игры</h2>
+        <h3>Правила игры</h3>
         
 
     <div style={{paddingTop: '10px'}}></div>        

@@ -12,6 +12,7 @@ class Answers extends React.Component {
         this.state = {
             value: '',
             data: null,
+            word: '',
         };
         this.handleChange = this.handleChange.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
@@ -25,17 +26,23 @@ class Answers extends React.Component {
         let word = this.state.value;
         if (word.length >= 3 && word.length <= 10) {
             this.loadData(word);
+            this.setState({
+                word: word,
+            });
         } else {
-            this.setState({data: []});
+            this.setState({
+                data: [],
+                word: word,
+            });
         }
     }
- 
+
     render() {
         let title = <h3>Поиск слов</h3>;
         let finded_words = [];
         let links = '';
         if (this.state.data != null) {
-            title = <h3>Все слова, которые можно составить из "{this.state.data.word}"</h3>
+            title = <h3>Все слова, которые можно составить из "{this.state.word}"</h3>
             if (this.state.data.status === 'success') {
                 finded_words = this.getFindedWords();
                 if (finded_words.length) {
@@ -46,7 +53,7 @@ class Answers extends React.Component {
                     links = <div className="alert alert-danger">Комбинации слов не найдены</div>
                 }
             } else {
-                links = <div className="alert alert-danger">Ошибка в полученных данных или некорректно соcтавленный запрос к АПИ. <br/>Введите слово на кириллице длиной от 3-х до 10-ти символов/ </div>
+                links = <div className="alert alert-danger">Ошибка в полученных данных или некорректно соcтавленный запрос к АПИ. <br/>Введите слово на кириллице длиной от 3-х до 10-ти символов. </div>
             }
         }
 
@@ -90,13 +97,16 @@ class Answers extends React.Component {
 
     getSearchForm() {
         return (
-                <div>
-                    <input
-                        type="text"
-                        placeholder=""
-                        onChange={this.handleChange}
-                        />
-                    <input type="button" value="Искать варианты" className="find" onClick={this.handleSubmit}/>                
+                <div className="form-inline">
+                    <div class="form-group form-input">
+                        <input
+                            type="text"
+                            className="form-control"
+                            placeholder=""
+                            onChange={this.handleChange}
+                            />
+                    </div> 
+                    <input type="button" value="Искать варианты" className="btn btn-primary" onClick={this.handleSubmit}/>                
                 </div>
                 );
     }

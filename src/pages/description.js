@@ -40,7 +40,7 @@ class Description extends React.Component {
 
         return (
                 <div className="content">
-                    <h2>Значения слова "{word}"</h2>
+                    <h3>Значения слова "{word}"</h3>
                     {result}
                 </div>
                 );

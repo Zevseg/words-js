@@ -15,58 +15,41 @@ import About from './pages/about';
 import NotFound from './pages/notfound';
 
 import "bootstrap/dist/css/bootstrap.css";
-import {Navbar, NavItem, Nav, Grid, Row, Col} from "react-bootstrap";
+import "bootstrap/dist/js/bootstrap.min.js";
+
+import {Grid, Row, Col} from "react-bootstrap";
 
 
-const App = () => (
+class App extends React.Component {
+  render() {
+    return (    
   <Router>
     <nav>
-    
-  <Navbar>
-    <Navbar.Header>
-      <Navbar.Brand>
-        <Link to="/"><span>&#9998;</span> Составь слова</Link>
-      </Navbar.Brand>
-    </Navbar.Header>
-    <Nav>
-        <NavItem><Link to="/">qwesdf rwq</Link></NavItem>
-        <NavItem><Link to="/">ewerdwqs</Link></NavItem>
-        <NavItem><Link to="/">hqwerw fq</Link></NavItem>
-    </Nav>
-  </Navbar>
-  <nav className="navbar navbar-expand-lg navbar-dark bg-dark">
-  <a className="navbar-brand" href="/">Navbar</a>
-  <button className="navbar-toggler" type="button" data-toggle="collapse" aria-expanded="false" aria-label="Toggle navigation">
-    <span className="navbar-toggler-icon"></span>
-  </button>
 
-  <div className="collapse navbar-collapse">
-    <ul className="navbar-nav mr-auto">
-      <li className="nav-item active">
-        <a className="nav-link" href="/">Home <span className="sr-only">(current)</span></a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/">Features</a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/">Pricing</a>
-      </li>
-      <li className="nav-item">
-        <a className="nav-link" href="/">About</a>
-      </li>
-    </ul>
-  </div>
-</nav>
-  <Grid>
-    <Row>
-    <Col md={12} sm={12}>
-      <ul className="menu">
-        <li><Link to="/">Главная</Link></li>
+<div className="navbar navbar-inverse navbar-fixed-top" role="navigation">
+<div className="container">
+<div className="navbar-header">
+<button type="button" className="navbar-toggle" data-toggle="collapse" data-target=".navbar-collapse">
+<span className="sr-only">Toggle navigation</span>
+<span className="icon-bar"></span>
+<span className="icon-bar"></span>
+<span className="icon-bar"></span>
+</button>
+<Link className="navbar-brand" to="/">Составь слова</Link>
+</div>
+<div className="collapse navbar-collapse">
+<ul className="nav navbar-nav">
         <li><Link to="/answers">Поиск слов</Link></li>
         <li><Link to="/rules">Правила</Link></li>
         <li><Link to="/about">Об игре</Link></li>
-      </ul>
+</ul>
+</div>
+</div>
+</div>
 
+  <Grid>
+    <Row>
+    <Col md={12} sm={12}>
       <Switch>
         <Route path="/" exact component={Answers}/>
         <Route path="/answers" component={Answers}/>
@@ -81,7 +64,9 @@ const App = () => (
   </Grid>
     </nav>
   </Router>
-)
+      );
+  }
+}
 
 export default App;
 
