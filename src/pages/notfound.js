@@ -2,11 +2,17 @@
 import React from 'react';
 
 class NotFound extends React.Component {
+    
+    constructor() {
+        super();
+        document.title = "Ошибка 404 - ничего не найдено";
+    }      
+    
   render() {
     return (
         <div className="content">            
-          <h3>404 page not found</h3>
-          <p>We are sorry but the page you are looking for does not exist.</p>
+          <h3>Ошибка 404</h3>
+          <p>Такой страницы не существует. Ничего не найдено.</p>
         </div>
     );
   }

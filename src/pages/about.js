@@ -2,6 +2,12 @@
 import React from 'react';
 
 class About extends React.Component {
+
+    constructor() {
+        super();
+        document.title = "Об игре";
+    }    
+    
   render() {
     return (
       <div className="content">

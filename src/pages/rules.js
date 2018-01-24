@@ -2,6 +2,12 @@
 import React from 'react';
 
 class Rules extends React.Component {
+
+    constructor() {
+        super();
+        document.title = "Правила игры";
+    }     
+    
   render() {
     return (
       <div className="content">

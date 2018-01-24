@@ -1,37 +1,108 @@
 
+
 import React from 'react';
-import {API_HOST} from '../config'
+import {Link} from 'react-router-dom';
+import {API_HOST} from '../config';
 
 class Answers extends React.Component {
 
     constructor(props) {
-        //super();
         super(props);
+        document.title = "Составление слов";
         this.state = {
+            value: '',
             data: null,
-            word: "no value"
         };
-        
-   
-   //this.state={word: "no value"};   
-   this.handleClick = this.handleClick.bind(this);
-   this.updateInputValue = this.updateInputValue.bind(this);        
+        this.handleChange = this.handleChange.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
     }
-    
-handleClick(){
-   console.log("trying to add picture url");
-   console.log("value of input field : "+this.state.word);
 
-  }
+    handleChange(event) {
+        this.setState({value: event.target.value});
+    }
 
-  updateInputValue(evt){
-    //console.log("input field updated with "+evt.target.value);
-    this.state={word: evt.target.value};   
+    handleSubmit(event) {
+        let word = this.state.value;
+        if (word.length >= 3 && word.length <= 10) {
+            this.loadData(word);
+        } else {
+            this.setState({data: []});
+        }
+    }
+ 
+    render() {
+        let title = <h3>Поиск слов</h3>;
+        let finded_words = [];
+        let links = '';
+        if (this.state.data != null) {
+            title = <h3>Все слова, которые можно составить из "{this.state.data.word}"</h3>
+            if (this.state.data.status === 'success') {
+                finded_words = this.getFindedWords();
+                if (finded_words.length) {
+                    links = finded_words.map((item, index) => {
+                        return this.WordsLinks({words: item, index: index});
+                    });
+                } else {
+                    links = <div className="alert alert-danger">Комбинации слов не найдены</div>
+                }
+            } else {
+                links = <div className="alert alert-danger">Ошибка в полученных данных или некорректно соcтавленный запрос к АПИ. <br/>Введите слово на кириллице длиной от 3-х до 10-ти символов/ </div>
+            }
+        }
 
-  }    
+        return (
+                <div className="content">  
+                    {title}
+                    {this.getSearchForm()}
+                    {links}                
+                </div>
+                );
+    }
 
-    loadData() {
-        const url = API_HOST + "/api/words/программа";
+    WordsLinks(props) {
+        const words_links = props.words.map((item, index) => {
+            return this.OneLink({word: item.word, index: index});
+        });
+        return (
+                <div key={props.index}>  
+                    {words_links}
+                </div>
+                );
+    }
+
+    OneLink(props) {
+        return <Link key={props.index} className="word" to={`/description/${props.word}`}>{props.word}</Link>;
+    }
+
+    getFindedWords() {
+        let words = [];
+        for (let key in this.state.data.data) {
+            const word = this.state.data.data[key];
+            let words_key = [];
+            for (let key_word in word) {
+                words_key.push({word: word[key_word].vocab});
+            }
+            words.push(words_key);
+        }
+
+        return words;
+    }
+
+    getSearchForm() {
+        return (
+                <div>
+                    <input
+                        type="text"
+                        placeholder=""
+                        onChange={this.handleChange}
+                        />
+                    <input type="button" value="Искать варианты" className="find" onClick={this.handleSubmit}/>                
+                </div>
+                );
+    }
+
+    loadData(word) {
+        const url = API_HOST + "/api/words/" + word;
         fetch(url)
                 .then(res => res.json())
                 .then(
@@ -39,73 +110,8 @@ handleClick(){
                             this.setState({data: json});
                         });
     }
-    
-//    onBtnClickHandler(e) {
-//        e.preventDefault();
-//        //let text = this.word.text.value;
-//        console.log(e);
-//    }
-
-    render() {
-        if (!this.state.data) {
-            this.loadData();
-        }
-
-        if (!this.state.data) {
-            return (
-                    <div>Loading ...</div>
-                    );
-        } else if (this.state.data.status == 'success') {
-            let finded_words;
-            const words = this.state.data.data;
-            for (let key in words) {
-                const word = words[key];
-                for (let key_word in word) {
-                    //console.log(word[key_word]['vocab']);
-                    finded_words += word[key_word]['vocab'] + ' ';
-                }
-            }
-            
-            return (
-                    <div className="content">            
-                        {this.getSearchForm()}
-                        <h3>Все слова, которые можно составить из "{this.state.data.word}"</h3>
-                        {finded_words}                
-                                        
-                    </div>
-                    );
-
-
-
-        }
-    }
-    
-
-    
-    getSearchForm() {
-        return (
-                <div className="content">
-                                
-                    <h4>Составление слов из букв и других слов</h4>
-                                
-                    <div className="well well-small">
-                        <p>
-                            <span>Введите слово или последовательность букв, из которых нужно составить слова</span>
-                        </p>
-                        <form className="form-inline" method="get" action="/answers">
-                            <div className="form-group">
-                                <input type="text" className="form-control input-lg" placeholder="" name="word" maxLength="20" 
-                                onChange={this.updateInputValue}
-                                />
-                            </div>
-                            <button className="btn btn-primary btn-lg" _t_ype="submit" 
-                            onClick={this.handleClick}>Искать варианты</button>
-                        </form>
-                    </div>        
-                                
-                </div>
-                );    
-    }
 }
 
+
 export default Answers;
+    
