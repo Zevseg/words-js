@@ -25,7 +25,7 @@ class App extends React.Component {
                                     <span className="icon-bar"></span>
                                     <span className="icon-bar"></span>
                                 </button>
-                                <Link className="navbar-brand" to="/">Составь слова</Link>
+                                <Link className="navbar-brand" to="/">&#9998; Составь слова</Link>
                             </div>
                             <div className="collapse navbar-collapse">
                                 <ul className="nav navbar-nav">

@@ -46,6 +46,15 @@ class Description extends React.Component {
                 );
     }
     
+    renderMyProp() {
+        return (
+                <div className="content">
+                    <h3>Значения слова "{12}"</h3>
+                    {12}
+                </div>
+                );
+    }
+    
     getDescription(props) {
         let word = <span className="label label-default">{props.word}</span>;
         let def = <span> - {props.item.def}</span>;
