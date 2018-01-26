@@ -1,3 +1,3 @@
 
 
-export const API_HOST = 'http://combinations.words';
+export const API_HOST = 'http://api.combination.cf';

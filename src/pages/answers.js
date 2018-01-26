@@ -112,7 +112,7 @@ class Answers extends React.Component {
     }
 
     OneLink(props) {
-        return <li key={props.index}><Link target="_blank" to={`/description/${props.word}`}>{props.word}</Link></li>;
+        return <li key={props.index}><Link target="_blank" to={`/description/?word=${props.word}`}>{props.word}</Link></li>;
     }
     
     getNameWords(count_words = 0) {
@@ -164,7 +164,7 @@ class Answers extends React.Component {
     }
 
     loadData(word) {
-        const url = API_HOST + "/api/words/" + word;
+        const url = API_HOST + "/web/words/" + word;
         fetch(url)
                 .then(res => res.json())
                 .then(

@@ -43,7 +43,7 @@ class App extends React.Component {
                           <Route path="/" exact component={Answers}/>
                           <Route path="/answers" component={Answers}/>
                           <Redirect from="/answer" to="/answers"/>
-                          <Route path="/description/:word" component={Description}/>
+                          <Route path="/description" component={Description}/>
                           <Route path="/rules" component={Rules}/>
                           <Route path="/about" component={About}/>
                           <Route component={NotFound}/>

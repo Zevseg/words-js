@@ -13,7 +13,7 @@ class Description extends React.Component {
     }    
     
     render() {
-        const word = this.props.match.params.word;
+        const word = new URLSearchParams(this.props.location.search).get('word');
         let result = '';
         
         if (this.state.data == null && word.length) {
@@ -101,7 +101,7 @@ class Description extends React.Component {
     }
 
     loadData(word) {
-        const url = API_HOST + "/api/description/" + word;
+        const url = API_HOST + "/web/description/" + word;
         fetch(url)
                 .then(res => res.json())
                 .then(
